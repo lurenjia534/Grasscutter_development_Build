@@ -1,0 +1,29 @@
+name: Grasscutter_development_Build
+on: [push,workflow_dispatch]
+
+jobs:
+  Grasscutter_development_Build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin' # See 'Supported distributions' for available options
+        java-version: '17'
+    - name: Git clone source code
+      run: |
+        git clone -b development https://github.com/Grasscutters/Grasscutter.git
+    - name: chmod
+      run: |
+        cd Grasscutter
+        chmod +x gradlew
+    - name: Build Grasscutter development Build
+      run: |
+        cd Grasscutter
+        ./gradlew jar
+    - name: update Grasscutter.jar
+      uses: actions/upload-artifact@v3
+      with:
+        name: Grasscutter 
+        path: Grasscutter/
