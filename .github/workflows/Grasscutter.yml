@@ -1,5 +1,8 @@
 name: Grasscutter_development_Build
-on: [push,workflow_dispatch]
+on: 
+  push:
+  schedule:
+    - core: '30 5 * * *'
 
 jobs:
   Grasscutter_development_Build:
